@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100memoria games - Portal Gamer</title>
+    <style>
+        :root {
+            --neon-blue: #1a75ff;
+            --matrix-green: #00ff41;
+            --deep-space: #0d0d0d;
+            --electric-purple: #bf00ff;
+            --dark-matter: #1a1a1a;
+        }
+        
+        body {
+            background-color: var(--deep-space);
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(26, 117, 255, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 65, 0.08) 0%, transparent 25%);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(90deg, transparent, rgba(191, 0, 255, 0.3), transparent);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--neon-blue);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .logo {
+            height: 80px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px var(--electric-purple));
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0 0;
+            margin: 0;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--matrix-green);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.9)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid var(--electric-purple);
+        }
+        
+        .hero h2 {
+            color: var(--matrix-green);
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--matrix-green);
+        }
+        
+        .hero p {
+            color: white;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .games {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--electric-purple);
+        }
+        
+        .games h2 {
+            color: var(--neon-blue);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .games h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: var(--electric-purple);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .game-card {
+            background: var(--dark-matter);
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(26, 117, 255, 0.3);
+            border-color: var(--matrix-green);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(110%);
+            transition: filter 0.3s ease;
+        }
+        
+        .game-card:hover img {
+            filter: grayscale(0%) contrast(120%);
+        }
+        
+        .game-card-content {
+            padding: 1.5rem;
+        }
+        
+        .game-card h3 {
+            color: var(--matrix-green);
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 1px solid var(--electric-purple);
+            padding-bottom: 0.5rem;
+        }
+        
+        .game-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+        
+        .play-button {
+            display: inline-block;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            padding: 0.5rem 1.5rem;
+            margin-top: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            background: var(--neon-blue);
+            color: var(--deep-space);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+        
+        .contact-info {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark-matter);
+            border-radius: 5px;
+            margin-top: 2rem;
+            border: 1px solid var(--electric-purple);
+        }
+        
+        .contact-info h3 {
+            color: var(--matrix-green);
+            margin-top: 0;
+        }
+        
+        .contact-info a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--matrix-green);
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--matrix-green);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--electric-purple);
+        }
+        
+        /* Efeitos especiais */
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        
+        .wormhole-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .wormhole-title {
+            color: var(--electric-purple);
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <!-- Adicione sua logo aqui -->
+                <img src="CAPA 100 MEMORIA sem fundo.png" alt="CAPA 100 MEMORIA" class="logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#jogos">Jogos Online</a></li>
+                    <li><a href="#downloads">Downloads</a></li>
+                    <li><a href="#wormhole">Buraco de Minhoca</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Bem-vindo ao 100memoria games</h2>
+            <p>Seu portal definitivo para os melhores jogos e experiências gamer!</p>
+        </div>
+    </section>
+
+    <section id="jogos" class="games">
+        <div class="container">
+            <h2>Jogos Online</h2>
+            <div class="game-list">
+                <div class="game-card">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Cyber Arena">
+                    <div class="game-card-content">
+                        <h3>Cyber Arena</h3>
+                        <p>Batalhas multiplayer em um futuro distópico cheio de neon e ação.</p>
+                        <a href="#" class="play-button">Jogar Agora</a>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Space Odyssey">
+                    <div class="game-card-content">
+                        <h3>Space Odyssey</h3>
+                        <p>Explore galáxias desconhecidas com seus amigos nesta aventura espacial.</p>
+                        <a href="#" class="play-button">Jogar Agora</a>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Dragon's Legacy">
+                    <div class="game-card-content">
+                        <h3>Dragon's Legacy</h3>
+                        <p>MMORPG épico com batalhas de dragões e clãs poderosos.</p>
+                        <a href="#" class="play-button">Jogar Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="downloads" class="games">
+        <div class="container">
+            <h2>Downloads Exclusivos</h2>
+            <div class="game-list">
+                <div class="game-card">
+                    <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Shadow Protocol">
+                    <div class="game-card-content">
+                        <h3>Shadow Protocol</h3>
+                        <p>Jogo de stealth tático para PC com gráficos impressionantes.</p>
+                        <a href="#" class="play-button">Download</a>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Retro Galaxy">
+                    <div class="game-card-content">
+                        <h3>Retro Galaxy</h3>
+                        <p>Coleção de jogos retrô para todas as plataformas.</p>
+                        <a href="#" class="play-button">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="wormhole" class="wormhole-section">
+        <div class="container">
+            <h2 class="wormhole-title">Buraco de Minhoca</h2>
+            <p>Em breve: uma nova dimensão de experiências gamer!</p>
+        </div>
+    </section>
+
+    <section id="contato" class="games">
+        <div class="container">
+            <h2>Contato</h2>
+            <div class="contact-info">
+                <h3>Entre em contato conosco</h3>
+                <p>Email: <a href="mailto:100memoria2018@gmail.com">100memoria2018@gmail.com</a></p>
+                <p>Telefone: <a href="tel:+5535999749267">(35) 99974-9267</a></p>
+                <p>Estamos disponíveis para parcerias, suporte e sugestões!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 100memoria games | Todos os direitos reservados</p>
+            <p>Desenvolvido com paixão pela comunidade gamer</p>
+        </div>
+    </footer>
+</body>
+</html>
